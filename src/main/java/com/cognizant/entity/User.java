@@ -39,8 +39,19 @@ public class User {
 		this.role = role;
 	}
 
-	public String print() {
-		return this.toString();
+	@Override
+	public String toString() {
+		return "{" +
+				" id='" + id + "'" +
+				", username='" + username + "'" +
+				", password='" + password + "'" +
+				", firstName='" + firstName + "'" +
+				", lastName='" + lastName + "'" +
+				", email='" + email + "'" +
+				", phone='" + phone + "'" +
+				", enabled='" + enabled + "'" +
+				", role='" + role + "'" +
+				"}";
 	}
 
 	public Long getId() {

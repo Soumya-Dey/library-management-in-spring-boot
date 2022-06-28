@@ -30,7 +30,7 @@ public class UserController {
 
 	@PostMapping("/register/{role}")
 	public User createUser(@RequestBody User req, @PathVariable("role") String role) throws Exception {
-		System.out.println(req.print());
+		System.out.println(req.toString());
 
 		User user = new User();
 		user.setUsername(req.getUsername());
@@ -44,7 +44,7 @@ public class UserController {
 
 		User user1 = this.userService.createUser(user);
 
-		System.out.println(user1.print());
+		System.out.println(user1.toString());
 		return user1;
 	}
 
