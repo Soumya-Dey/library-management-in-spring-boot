@@ -1,9 +1,13 @@
 package com.cognizant.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,13 +24,14 @@ public class User {
 	private String phone;
 	private boolean enabled = true;
 	private String role;
+	@OneToMany(mappedBy = "userFk")
+	private Set<Lending> lendings = new HashSet<>();
 
 	public User() {
-
 	}
 
 	public User(Long id, String username, String password, String firstName, String lastName, String email,
-			String phone, boolean enabled, String role) {
+			String phone, boolean enabled, String role, Set<Lending> lendings) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -37,6 +42,7 @@ public class User {
 		this.phone = phone;
 		this.enabled = enabled;
 		this.role = role;
+		this.lendings = lendings;
 	}
 
 	@Override
@@ -51,11 +57,12 @@ public class User {
 				", phone='" + phone + "'" +
 				", enabled='" + enabled + "'" +
 				", role='" + role + "'" +
+				", lendings='" + lendings + "'" +
 				"}";
 	}
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
@@ -63,7 +70,7 @@ public class User {
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -71,7 +78,7 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -79,7 +86,7 @@ public class User {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -87,7 +94,7 @@ public class User {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -95,7 +102,7 @@ public class User {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -103,7 +110,7 @@ public class User {
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
@@ -111,7 +118,7 @@ public class User {
 	}
 
 	public String getRole() {
-		return role;
+		return this.role;
 	}
 
 	public void setRole(String role) {
@@ -119,11 +126,19 @@ public class User {
 	}
 
 	public boolean isEnabled() {
-		return enabled;
+		return this.enabled;
 	}
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public Set<Lending> getLendings() {
+		return this.lendings;
+	}
+
+	public void setLendings(Set<Lending> lendings) {
+		this.lendings = lendings;
 	}
 
 }

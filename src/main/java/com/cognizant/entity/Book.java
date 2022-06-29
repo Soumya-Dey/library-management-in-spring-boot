@@ -1,9 +1,12 @@
 package com.cognizant.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,17 +19,20 @@ public class Book {
     private String description;
     private String author;
     private String publishYear;
+    @OneToMany(mappedBy = "bookFk")
+    private Set<Lending> lendings = new HashSet<>();
 
     public Book() {
     }
 
-    public Book(Long id, String title, String description, String author, String publishYear) {
+    public Book(Long id, String title, String description, String author, String publishYear, Set<Lending> lendings) {
         super();
         this.id = id;
         this.title = title;
         this.description = description;
         this.author = author;
         this.publishYear = publishYear;
+        this.lendings = lendings;
     }
 
     @Override
@@ -37,6 +43,7 @@ public class Book {
                 ", description='" + description + "'" +
                 ", author='" + author + "'" +
                 ", publishYear='" + publishYear + "'" +
+                ", lendings='" + lendings + "'" +
                 "}";
     }
 
@@ -80,4 +87,11 @@ public class Book {
         this.publishYear = publishYear;
     }
 
+    public Set<Lending> getLendings() {
+        return this.lendings;
+    }
+
+    public void setLendings(Set<Lending> lendings) {
+        this.lendings = lendings;
+    }
 }
