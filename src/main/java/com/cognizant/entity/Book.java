@@ -21,6 +21,7 @@ public class Book {
     private String description;
     private String author;
     private String publishYear;
+    private int stock;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookFk")
     @JsonIgnore
     private Set<Lending> lendings = new HashSet<>();
@@ -28,13 +29,15 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String title, String description, String author, String publishYear, Set<Lending> lendings) {
+    public Book(Long id, String title, String description, String author, String publishYear, int stock,
+            Set<Lending> lendings) {
         super();
         this.id = id;
         this.title = title;
         this.description = description;
         this.author = author;
         this.publishYear = publishYear;
+        this.stock = stock;
         this.lendings = lendings;
     }
 
@@ -46,6 +49,7 @@ public class Book {
                 ", description='" + description + "'" +
                 ", author='" + author + "'" +
                 ", publishYear='" + publishYear + "'" +
+                ", stock='" + stock + "'" +
                 "}";
     }
 
@@ -87,6 +91,14 @@ public class Book {
 
     public void setPublishYear(String publishYear) {
         this.publishYear = publishYear;
+    }
+
+    public int getStock() {
+        return this.stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public Set<Lending> getLendings() {

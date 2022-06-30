@@ -49,6 +49,7 @@ public class BookController {
                 book.setDescription(req.getDescription());
                 book.setAuthor(req.getAuthor());
                 book.setPublishYear(req.getPublishYear());
+                book.setStock(req.getStock());
 
                 Book newBook = bookService.createBook(book);
                 System.out.println(newBook.toString());

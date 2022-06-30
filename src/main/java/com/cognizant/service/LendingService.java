@@ -52,18 +52,24 @@ public class LendingService {
 
         User existingUser = oUser.get();
         Book existingBook = oBook.get();
+        if (existingBook.getStock() <= 0)
+            throw new Exception("Book is out of stock!");
+        else {
+            Lending lending = new Lending();
+            lending.setLendDate(new Date(System.currentTimeMillis()));
+            lending.setReturnDate(new Date(System.currentTimeMillis() + 604800000));
+            lending.setUserFk(existingUser);
+            lending.setBookFk(existingBook);
+            lending.setStatus(LendingStatus.REQUESTED);
+            existingUser.getLendings().add(lending);
+            existingBook.getLendings().add(lending);
 
-        Lending lending = new Lending();
-        lending.setLendDate(new Date(System.currentTimeMillis()));
-        lending.setReturnDate(new Date(System.currentTimeMillis() + 604800000));
-        lending.setUserFk(existingUser);
-        lending.setBookFk(existingBook);
-        lending.setStatus(LendingStatus.REQUESTED);
-        existingUser.getLendings().add(lending);
-        existingBook.getLendings().add(lending);
+            existingBook.setStock(existingBook.getStock() - 1);
+            bookRepository.save(existingBook);
 
-        Lending newLending = lendingRepository.save(lending);
-        return newLending;
+            Lending newLending = lendingRepository.save(lending);
+            return newLending;
+        }
     }
 
     public Lending updateLendingStatus(Long lendingId, LendingStatus newStatus) throws Exception {
@@ -74,6 +80,16 @@ public class LendingService {
             Lending lending = oLending.get();
             lending.setStatus(newStatus);
             Lending updatedLending = lendingRepository.save(lending);
+
+            if (newStatus == LendingStatus.REJECTED) {
+                Optional<Book> oBook = bookRepository.findById(updatedLending.getBookFk().getId());
+                if (oBook.isPresent()) {
+                    Book existingBook = oBook.get();
+                    existingBook.setStock(existingBook.getStock() + 1);
+                    bookRepository.save(existingBook);
+                }
+            }
+
             return updatedLending;
         }
     }
