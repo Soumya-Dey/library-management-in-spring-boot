@@ -2,13 +2,14 @@ package com.cognizant.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -24,7 +25,8 @@ public class User {
 	private String phone;
 	private boolean enabled = true;
 	private String role;
-	@OneToMany(mappedBy = "userFk")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userFk")
+	@JsonIgnore
 	private Set<Lending> lendings = new HashSet<>();
 
 	public User() {
@@ -57,7 +59,6 @@ public class User {
 				", phone='" + phone + "'" +
 				", enabled='" + enabled + "'" +
 				", role='" + role + "'" +
-				", lendings='" + lendings + "'" +
 				"}";
 	}
 

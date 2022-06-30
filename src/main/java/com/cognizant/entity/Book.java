@@ -2,12 +2,14 @@ package com.cognizant.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "books")
@@ -19,7 +21,8 @@ public class Book {
     private String description;
     private String author;
     private String publishYear;
-    @OneToMany(mappedBy = "bookFk")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookFk")
+    @JsonIgnore
     private Set<Lending> lendings = new HashSet<>();
 
     public Book() {
@@ -43,7 +46,6 @@ public class Book {
                 ", description='" + description + "'" +
                 ", author='" + author + "'" +
                 ", publishYear='" + publishYear + "'" +
-                ", lendings='" + lendings + "'" +
                 "}";
     }
 

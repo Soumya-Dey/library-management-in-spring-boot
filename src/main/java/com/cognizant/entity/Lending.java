@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name = "lendings")
@@ -16,15 +15,11 @@ public class Lending {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NonNull
     private Date lendDate;
-    @NonNull
     private Date returnDate;
     @ManyToOne
-    @NonNull
     private User userFk;
     @ManyToOne
-    @NonNull
     private Book bookFk;
     private boolean accepted;
 

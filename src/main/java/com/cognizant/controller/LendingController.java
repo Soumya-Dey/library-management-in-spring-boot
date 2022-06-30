@@ -30,7 +30,7 @@ public class LendingController {
     @PostMapping("/")
     public Lending createLending(@RequestBody LendingObject lendingObject) throws Exception {
         Lending newLending = lendingService.createLending(lendingObject);
-        System.out.println(newLending.toString());
+        // System.out.println(newLending.toString());
         return newLending;
     }
 }
