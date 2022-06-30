@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cognizant.utils.LendingStatus;
+
 @Entity
 @Table(name = "lendings")
 public class Lending {
@@ -21,19 +23,19 @@ public class Lending {
     private User userFk;
     @ManyToOne
     private Book bookFk;
-    private boolean accepted;
+    private LendingStatus status;
 
     public Lending() {
     }
 
-    public Lending(Long id, Date lendDate, Date returnDate, User userFk, Book bookFk, boolean accepted) {
+    public Lending(Long id, Date lendDate, Date returnDate, User userFk, Book bookFk, LendingStatus status) {
         super();
         this.id = id;
         this.lendDate = lendDate;
         this.returnDate = returnDate;
         this.userFk = userFk;
         this.bookFk = bookFk;
-        this.accepted = accepted;
+        this.status = status;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class Lending {
                 ", returnDate='" + returnDate + "'" +
                 ", userFk='" + userFk + "'" +
                 ", bookFk='" + bookFk + "'" +
-                ", accepted='" + accepted + "'" +
+                ", status='" + status + "'" +
                 "}";
     }
 
@@ -88,12 +90,12 @@ public class Lending {
         this.bookFk = bookFk;
     }
 
-    public boolean isAccepted() {
-        return this.accepted;
+    public LendingStatus getStatus() {
+        return this.status;
     }
 
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
+    public void setStatus(LendingStatus status) {
+        this.status = status;
     }
 
 }

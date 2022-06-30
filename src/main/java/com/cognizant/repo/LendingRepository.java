@@ -8,7 +8,7 @@ import com.cognizant.entity.User;
 
 import java.util.List;
 
-public interface LendingRepository extends JpaRepository<Lending, Integer> {
+public interface LendingRepository extends JpaRepository<Lending, Long> {
 
     List<Lending> findAllByBookFk(Book book);
 
